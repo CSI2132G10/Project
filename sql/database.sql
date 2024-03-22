@@ -8,7 +8,7 @@ CREATE TABLE hotel_chain (
 );
 
 CREATE TABLE employee (
-  employee_id   int         PRIMARY KEY,
+  employee_id            SERIAL PRIMARY KEY,
   employee_name varchar(45) NOT NULL,
   role          varchar(45) NOT NULL,
   sin           int         NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE room (
 );
 
 CREATE TABLE customer (
-  account_number      int         PRIMARY KEY,
+  account_number               SERIAL PRIMARY KEY,
   customer_name       varchar(45) NOT NULL,
   address             varchar(45) NOT NULL,
   id                  int         NOT NULL,
