@@ -1,6 +1,9 @@
 /**
  * HotelChain class to save HotelChain information
  */
+
+ package group10;
+
 public class HotelChain {
 
     private String chain_name;

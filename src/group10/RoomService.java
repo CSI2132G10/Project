@@ -1,3 +1,4 @@
+package group10;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,9 +67,9 @@ public class RoomService {
 
         // connection object
         ConnectionDB db = new ConnectionDB();
-        System.out.println(newRoom.getChain_name());
-        System.out.println(newRoom.getHotel_name());
-        System.out.println(newRoom.getRoom_number());
+        System.out.println(newRoom.getChainName());
+        System.out.println(newRoom.getHotelName());
+        System.out.println(newRoom.getRoomNumber());
         System.out.println(newRoom.getPrice());
         System.out.println(newRoom.getCapacity());
 
@@ -83,9 +84,9 @@ public class RoomService {
             PreparedStatement stmt = con.prepareStatement(insertStudentQuery);
 
             // set every ? of statement
-            stmt.setString(1, newRoom.getChain_name());
-            stmt.setString(2, newRoom.getHotel_name());
-            stmt.setInt(3, newRoom.getRoom_number());
+            stmt.setString(1, newRoom.getChainName());
+            stmt.setString(2, newRoom.getHotelName());
+            stmt.setInt(3, newRoom.getRoomNumber());
             stmt.setFloat(4, newRoom.getPrice());
             stmt.setInt(5, newRoom.getCapacity());
 
@@ -115,7 +116,7 @@ public class RoomService {
         String message = "";
 
         // sql query
-        String sql = "UPDATE room SET price=?, capacity=? WHERE chain_name=?, hotel_name=?, room_number=?;";
+        String sql = "UPDATE room SET price=?, capacity=? WHERE chain_name=? AND hotel_name=? AND room_number=?;";
 
         // connection object
         ConnectionDB db = new ConnectionDB();
@@ -131,9 +132,9 @@ public class RoomService {
             // set every ? of statement
             stmt.setFloat(1, editRoom.getPrice());
             stmt.setInt(2, editRoom.getCapacity());
-            stmt.setString(3, editRoom.getChain_name());
-            stmt.setString(4, editRoom.getHotel_name());
-            stmt.setInt(5, editRoom.getRoom_number());
+            stmt.setString(3, editRoom.getChainName());
+            stmt.setString(4, editRoom.getHotelName());
+            stmt.setInt(5, editRoom.getRoomNumber());
 
             // execute the query
             stmt.executeUpdate();
@@ -159,7 +160,7 @@ public class RoomService {
         String message = "";
 
         // sql query
-        String sql = "DELETE FROM room WHERE chain_name=?, hotel_name=?, room_number=?;";
+        String sql = "DELETE FROM room WHERE chain_name=? AND hotel_name=? AND room_number=?;";
 
         // database connection object
         ConnectionDB db = new ConnectionDB();

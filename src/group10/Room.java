@@ -1,3 +1,5 @@
+package group10;
+
 /**
  * HotelChain class to save HotelChain information
  */
@@ -17,12 +19,12 @@ public class Room {
         this.capacity = capacity;
     }
 
-    public String getChain_name() {return chain_name;}
-    public void setChain_name(String chain_name) {this.chain_name = chain_name;}
-    public String getHotel_name() {return hotel_name;}
-    public void setHotel_name(String hotel_name) {this.hotel_name = hotel_name;}
-    public int getRoom_number() {return room_number;}
-    public void setRoom_number(int room_number) {this.room_number = room_number;}
+    public String getChainName() {return chain_name;}
+    public void setChainName(String chain_name) {this.chain_name = chain_name;}
+    public String getHotelName() {return hotel_name;}
+    public void setHotelName(String hotel_name) {this.hotel_name = hotel_name;}
+    public int getRoomNumber() {return room_number;}
+    public void setRoomNumber(int room_number) {this.room_number = room_number;}
     public float getPrice() {return price;}
     public void setPrice(float price) {this.price = price;}
     public int getCapacity() {return capacity;}

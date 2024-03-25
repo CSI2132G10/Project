@@ -1,7 +1,7 @@
+package group10;
+
 import java.sql.*;
 import java.util.List;
-
-
 
 
 // THIS IS FOR TESTING PURPOSES ONLY. DELETE AND EDIT AS YOU SEE FIT
@@ -11,7 +11,14 @@ public class Main {
     {
         //connectionTest("hotel");
         //serviceTest();
+        //deleteTest("BestEastern", "Chateau", 300);
+
+        System.out.println("Main has completed running");
     }
+
+
+
+
 
     public static void connectionTest(String tableName)
     {
@@ -58,4 +65,14 @@ public class Main {
         }
     }
     
+    public static void deleteTest(String chain_name, String hotel_name, int room_number)
+    {
+        RoomService testService1 = new RoomService();
+        try{
+            testService1.deleteRoom(chain_name, hotel_name, room_number);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
