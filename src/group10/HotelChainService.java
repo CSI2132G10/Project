@@ -22,7 +22,7 @@ public class HotelChainService {
         // connection object
         ConnectionDB db = new ConnectionDB();
 
-        // data structure to keep all students retrieved from database
+        // data structure to keep all HotelChains retrieved from database
         List<HotelChain> chains = new ArrayList<HotelChain>();
 
         // try connect to database, catch any exceptions
@@ -35,13 +35,13 @@ public class HotelChainService {
 
             // iterate through the result set
             while (rs.next()) {
-                // create new student object
+                // create new HotelChain object
                 HotelChain chain = new HotelChain(
                     rs.getString("chain_name"),
                     rs.getInt("num_hotels")
                 );
 
-                // append student in students list
+                // append HotelChain in HotelChains list
                 chains.add(chain);
             }
 

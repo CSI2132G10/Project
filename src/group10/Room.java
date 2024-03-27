@@ -1,7 +1,7 @@
 package group10;
 
 /**
- * HotelChain class to save HotelChain information
+ * Room class to save Room information
  */
 public class Room {
 

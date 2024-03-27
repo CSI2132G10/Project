@@ -6,23 +6,23 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomService {
+public class EmployeeService {
 
     /**
-     * Method to get all rooms from database
+     * Method to get all employees from database
      *
-     * @return list of all chains found in database
+     * @return list of all employees found in database
      * @throws Exception when trying to connect to database
      */
-    public List<Room> getRooms() throws Exception {
+    public List<Employee> getEmployees() throws Exception {
 
         // sql query
-        String sql = "SELECT * FROM room";
+        String sql = "SELECT * FROM employee";
         // connection object
         ConnectionDB db = new ConnectionDB();
 
-        // data structure to keep all Rooms retrieved from database
-        List<Room> rooms = new ArrayList<Room>();
+        // data structure to keep all Employees retrieved from database
+        List<Employee> employees = new ArrayList<Employee>();
 
         // try connect to database, catch any exceptions
         try (Connection con = db.getConnection()) {
@@ -34,17 +34,18 @@ public class RoomService {
 
             // iterate through the result set
             while (rs.next()) {
-                // create new Room object
-                Room newRoom = new Room(
-                    rs.getString("chain_name"),
-                    rs.getString("hotel_name"),
-                    rs.getInt("room_number"),
-                    rs.getFloat("price"),
-                    rs.getInt("capacity")
+                // create new Employee object
+                Employee newEmp = new Employee(
+                    rs.getInt("employee_id"),
+                    rs.getString("employee_name"),
+                    rs.getString("role"),
+                    rs.getInt("sin"),
+                    rs.getString("address"),
+                    rs.getString("chain_name")
                 );
 
-                // append Room in Rooms list
-                rooms.add(newRoom);
+                // append Employee in Employees list
+                employees.add(newEmp);
             }
 
             // close result set
@@ -55,40 +56,41 @@ public class RoomService {
             db.close();
 
             // return result
-            return rooms;
+            return employees;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
-    public String createRoom(Room newRoom) throws Exception {
+    public String createEmployee(Employee newEmp) throws Exception {
         String message = "";
         Connection con = null;
 
         // connection object
         ConnectionDB db = new ConnectionDB();
-        System.out.println(newRoom.getChainName());
-        System.out.println(newRoom.getHotelName());
-        System.out.println(newRoom.getRoomNumber());
-        System.out.println(newRoom.getPrice());
-        System.out.println(newRoom.getCapacity());
+        System.out.println(newEmp.getEmployeeId());
+        System.out.println(newEmp.getEmployeeName());
+        System.out.println(newEmp.getRole());
+        System.out.println(newEmp.getSin());
+        System.out.println(newEmp.getAddress());
+        System.out.println(newEmp.getChainName());
 
         // sql query
-        String insertRoomQuery = "INSERT INTO room VALUES (?, ?, ?, ?, ?);";
+        String insertEmployeeQuery = "INSERT INTO employee(employee_name,role,sin,address,chain_name) VALUES (?, ?, ?, ?, ?);";
 
         // try connect to database, catch any exceptions
         try {
             con = db.getConnection(); //get Connection
 
             // prepare the statement
-            PreparedStatement stmt = con.prepareStatement(insertRoomQuery);
+            PreparedStatement stmt = con.prepareStatement(insertEmployeeQuery);
 
             // set every ? of statement
-            stmt.setString(1, newRoom.getChainName());
-            stmt.setString(2, newRoom.getHotelName());
-            stmt.setInt(3, newRoom.getRoomNumber());
-            stmt.setFloat(4, newRoom.getPrice());
-            stmt.setInt(5, newRoom.getCapacity());
+            stmt.setString(1, newEmp.getEmployeeName());
+            stmt.setString(2, newEmp.getRole());
+            stmt.setInt(3, newEmp.getSin());
+            stmt.setString(4, newEmp.getAddress());
+            stmt.setString(5, newEmp.getChainName());
 
             // execute the query
             int output = stmt.executeUpdate();
@@ -99,11 +101,11 @@ public class RoomService {
             // close the connection
             db.close();
         } catch (Exception e) {
-            message = "Error while inserting room: " + e.getMessage();
+            message = "Error while inserting Employee: " + e.getMessage();
         } finally {
             if (con != null) // if connection is still open, then close.
                 con.close();
-            if (message.equals("")) message = "Room successfully inserted!";
+            if (message.equals("")) message = "Employee successfully inserted!";
 
         }
 
@@ -111,12 +113,12 @@ public class RoomService {
         return message;
     }
 
-    public String updateRoom(Room editRoom) throws Exception {
+    public String updateEmployee(Employee editEmp) throws Exception {
         Connection con = null;
         String message = "";
 
         // sql query
-        String sql = "UPDATE room SET price=?, capacity=? WHERE chain_name=? AND hotel_name=? AND room_number=?;";
+        String sql = "UPDATE employee SET employee_name=?, role=?, sin=?, address=?, chain_name=? WHERE employee_id=?;";
 
         // connection object
         ConnectionDB db = new ConnectionDB();
@@ -130,11 +132,13 @@ public class RoomService {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             // set every ? of statement
-            stmt.setFloat(1, editRoom.getPrice());
-            stmt.setInt(2, editRoom.getCapacity());
-            stmt.setString(3, editRoom.getChainName());
-            stmt.setString(4, editRoom.getHotelName());
-            stmt.setInt(5, editRoom.getRoomNumber());
+            stmt.setString(1, editEmp.getEmployeeName());
+            stmt.setString(2, editEmp.getRole());
+            stmt.setInt(3, editEmp.getSin());
+            stmt.setString(4, editEmp.getAddress());
+            stmt.setString(5, editEmp.getChainName());
+            stmt.setInt(6, editEmp.getEmployeeId());
+
 
             // execute the query
             stmt.executeUpdate();
@@ -143,11 +147,11 @@ public class RoomService {
             stmt.close();
 
         } catch (Exception e) {
-            message = "Error while updating room: " + e.getMessage();
+            message = "Error while updating Employee: " + e.getMessage();
 
         } finally {
             if (con != null) con.close();
-            if (message.equals("")) message = "Room successfully updated!";
+            if (message.equals("")) message = "Employee successfully updated!";
         }
 
         // return respective message
@@ -155,12 +159,12 @@ public class RoomService {
     }
 
 
-    public String deleteRoom(String chain_name, String hotel_name, int room_number) throws Exception {
+    public String deleteEmployee(int employee_id) throws Exception {
         Connection con = null;
         String message = "";
 
         // sql query
-        String sql = "DELETE FROM room WHERE chain_name=? AND hotel_name=? AND room_number=?;";
+        String sql = "DELETE FROM employee WHERE employee_id=?;";
 
         // database connection object
         ConnectionDB db = new ConnectionDB();
@@ -173,9 +177,7 @@ public class RoomService {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             // set every ? of statement
-            stmt.setString(1, chain_name);
-            stmt.setString(2, hotel_name);
-            stmt.setInt(3, room_number);
+            stmt.setInt(1, employee_id);
 
             // execute the query
             stmt.executeUpdate();
@@ -184,10 +186,10 @@ public class RoomService {
             stmt.close();
 
         } catch (Exception e) {
-            message = "Error while delete room: " + e.getMessage();
+            message = "Error while delete Employee: " + e.getMessage();
         } finally {
             if (con != null) con.close();
-            if (message.equals("")) message = "Room successfully deleted!";
+            if (message.equals("")) message = "Employee successfully deleted!";
         }
 
         return message;

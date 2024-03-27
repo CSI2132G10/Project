@@ -6,23 +6,23 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomService {
+public class CustomerService {
 
     /**
-     * Method to get all rooms from database
+     * Method to get all Customers from database
      *
-     * @return list of all chains found in database
+     * @return list of all Customers found in database
      * @throws Exception when trying to connect to database
      */
-    public List<Room> getRooms() throws Exception {
+    public List<Customer> getCustomers() throws Exception {
 
         // sql query
-        String sql = "SELECT * FROM room";
+        String sql = "SELECT * FROM customer";
         // connection object
         ConnectionDB db = new ConnectionDB();
 
-        // data structure to keep all Rooms retrieved from database
-        List<Room> rooms = new ArrayList<Room>();
+        // data structure to keep all Customers retrieved from database
+        List<Customer> customers = new ArrayList<Customer>();
 
         // try connect to database, catch any exceptions
         try (Connection con = db.getConnection()) {
@@ -34,17 +34,17 @@ public class RoomService {
 
             // iterate through the result set
             while (rs.next()) {
-                // create new Room object
-                Room newRoom = new Room(
-                    rs.getString("chain_name"),
-                    rs.getString("hotel_name"),
-                    rs.getInt("room_number"),
-                    rs.getFloat("price"),
-                    rs.getInt("capacity")
+                // create new Customer object
+                Customer newCust = new Customer(
+                    rs.getInt("account_number"),
+                    rs.getString("customer_name"),
+                    rs.getString("address"),
+                    rs.getInt("id"),
+                    rs.getDate("date_of_registration")
                 );
 
-                // append Room in Rooms list
-                rooms.add(newRoom);
+                // append Customer in Customers list
+                customers.add(newCust);
             }
 
             // close result set
@@ -55,40 +55,39 @@ public class RoomService {
             db.close();
 
             // return result
-            return rooms;
+            return customers;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
-    public String createRoom(Room newRoom) throws Exception {
+    public String createCustomer(Customer newCust) throws Exception {
         String message = "";
         Connection con = null;
 
         // connection object
         ConnectionDB db = new ConnectionDB();
-        System.out.println(newRoom.getChainName());
-        System.out.println(newRoom.getHotelName());
-        System.out.println(newRoom.getRoomNumber());
-        System.out.println(newRoom.getPrice());
-        System.out.println(newRoom.getCapacity());
+        System.out.println(newCust.getAccountNumber());
+        System.out.println(newCust.getCustomerName());
+        System.out.println(newCust.getAddress());
+        System.out.println(newCust.getId());
+        System.out.println(newCust.getDateOfRegistration());
 
         // sql query
-        String insertRoomQuery = "INSERT INTO room VALUES (?, ?, ?, ?, ?);";
+        String insertCustomerQuery = "INSERT INTO customer(customer_name,address,id,date_of_registration) VALUES (?, ?, ?, ?);";
 
         // try connect to database, catch any exceptions
         try {
             con = db.getConnection(); //get Connection
 
             // prepare the statement
-            PreparedStatement stmt = con.prepareStatement(insertRoomQuery);
+            PreparedStatement stmt = con.prepareStatement(insertCustomerQuery);
 
             // set every ? of statement
-            stmt.setString(1, newRoom.getChainName());
-            stmt.setString(2, newRoom.getHotelName());
-            stmt.setInt(3, newRoom.getRoomNumber());
-            stmt.setFloat(4, newRoom.getPrice());
-            stmt.setInt(5, newRoom.getCapacity());
+            stmt.setString(1, newCust.getCustomerName());
+            stmt.setString(2, newCust.getAddress());
+            stmt.setInt(3, newCust.getId());
+            stmt.setDate(4, newCust.getDateOfRegistration());
 
             // execute the query
             int output = stmt.executeUpdate();
@@ -99,11 +98,11 @@ public class RoomService {
             // close the connection
             db.close();
         } catch (Exception e) {
-            message = "Error while inserting room: " + e.getMessage();
+            message = "Error while inserting Customer: " + e.getMessage();
         } finally {
             if (con != null) // if connection is still open, then close.
                 con.close();
-            if (message.equals("")) message = "Room successfully inserted!";
+            if (message.equals("")) message = "Customer successfully inserted!";
 
         }
 
@@ -111,12 +110,12 @@ public class RoomService {
         return message;
     }
 
-    public String updateRoom(Room editRoom) throws Exception {
+    public String updateCustomer(Customer editCust) throws Exception {
         Connection con = null;
         String message = "";
 
         // sql query
-        String sql = "UPDATE room SET price=?, capacity=? WHERE chain_name=? AND hotel_name=? AND room_number=?;";
+        String sql = "UPDATE customer SET customer_name=?, address=?, id=?, date_of_registration=? WHERE account_number=?;";
 
         // connection object
         ConnectionDB db = new ConnectionDB();
@@ -130,11 +129,12 @@ public class RoomService {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             // set every ? of statement
-            stmt.setFloat(1, editRoom.getPrice());
-            stmt.setInt(2, editRoom.getCapacity());
-            stmt.setString(3, editRoom.getChainName());
-            stmt.setString(4, editRoom.getHotelName());
-            stmt.setInt(5, editRoom.getRoomNumber());
+            stmt.setString(1, editCust.getCustomerName());
+            stmt.setString(2, editCust.getAddress());
+            stmt.setInt(3, editCust.getId());
+            stmt.setDate(4, editCust.getDateOfRegistration());
+            stmt.setInt(5, editCust.getAccountNumber());
+
 
             // execute the query
             stmt.executeUpdate();
@@ -143,11 +143,11 @@ public class RoomService {
             stmt.close();
 
         } catch (Exception e) {
-            message = "Error while updating room: " + e.getMessage();
+            message = "Error while updating Customer: " + e.getMessage();
 
         } finally {
             if (con != null) con.close();
-            if (message.equals("")) message = "Room successfully updated!";
+            if (message.equals("")) message = "Customer successfully updated!";
         }
 
         // return respective message
@@ -155,12 +155,12 @@ public class RoomService {
     }
 
 
-    public String deleteRoom(String chain_name, String hotel_name, int room_number) throws Exception {
+    public String deleteCustomer(int account_number) throws Exception {
         Connection con = null;
         String message = "";
 
         // sql query
-        String sql = "DELETE FROM room WHERE chain_name=? AND hotel_name=? AND room_number=?;";
+        String sql = "DELETE FROM customer WHERE account_number=?;";
 
         // database connection object
         ConnectionDB db = new ConnectionDB();
@@ -173,9 +173,7 @@ public class RoomService {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             // set every ? of statement
-            stmt.setString(1, chain_name);
-            stmt.setString(2, hotel_name);
-            stmt.setInt(3, room_number);
+            stmt.setInt(1, account_number);
 
             // execute the query
             stmt.executeUpdate();
@@ -184,10 +182,10 @@ public class RoomService {
             stmt.close();
 
         } catch (Exception e) {
-            message = "Error while delete room: " + e.getMessage();
+            message = "Error while delete Customer: " + e.getMessage();
         } finally {
             if (con != null) con.close();
-            if (message.equals("")) message = "Room successfully deleted!";
+            if (message.equals("")) message = "Customer successfully deleted!";
         }
 
         return message;
