@@ -1,24 +1,3 @@
-<%@ page import="group10.Room,group10.RoomService,group10.HotelChain,group10.HotelChainService,java.util.List" %>
-<%
-    List<HotelChain> chains = null;
-    HotelChainService chainServ = new HotelChainService();
-    try {
-        chains = chainServ.getHotelChains();
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    List<Room> rooms = null;
-    RoomService roomserv = new RoomService();
-    try {
-        rooms = roomserv.getRooms();
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,40 +5,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title> Home Page </title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <h1> Temporary text new test 321 </h1>
-
-    <tbody>
-    <%
-    for (HotelChain chain : chains) { %>
-    <tr>
-        <td><%= chain.getChainName() %></td>
-    </tr>
-    <% } %>
-    </tbody>
-
-    <tbody>
-    <%
-    for (Room room : rooms) { %>
-    <tr>
-        <td><%= room.getRoomNumber() %></td>
-        <td><%= room.getHotelName() %></td>
-        <td><%= room.getChainName() %></td>
-        <form method="POST" action="delete-room-controller.jsp">
-            <td>
-                <input type="hidden" value="<%= room.getRoomNumber() %>" name="roomNumber" />
-                <input type="hidden" value="<%= room.getHotelName() %>" name="hotelName" />
-                <input type="hidden" value="<%= room.getChainName() %>" name="chainName" />
-                <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-trash"></i></button>
-            </td>
-        </form>
-    </tr>
-    <% } %>
-    </tbody>
+    <jsp:include page="navbar.jsp"/>
+    
+    <div class="container" id="row-container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;" id="card-container-layout">
+                    <div class="card-body">
+                        <h5 class="card-title">Customer Login Portal</h5>
+                        <p class="card-text">Login as a customer.<br> Search for rooms and make bookings.</p>
+                        <a id="show-btn" href="#" class="btn btn-primary">Login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;" id="card-container-layout">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee Login Portal</h5>
+                        <p class="card-text">Login as an employee.<br> Convert bookings to rentings.</p>
+                        <a id="show-btn" href="#" class="btn btn-primary">Login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;" id="card-container-layout">
+                    <div class="card-body">
+                        <h5 class="card-title">Admin Login Portal</h5>
+                        <p class="card-text">Login as a database admin.<br> Used to test out features (for grading purposes).</p>
+                        <a id="show-btn" href="admin.jsp" class="btn btn-primary">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
