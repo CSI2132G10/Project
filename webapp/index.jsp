@@ -13,14 +13,14 @@
 
     <jsp:include page="navbar.jsp"/>
     
-    <div class="container" id="row-container">
+    <div class="container p-3" id="row-container">
         <div class="row">
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;" id="card-container-layout">
                     <div class="card-body">
                         <h5 class="card-title">Customer Login Portal</h5>
                         <p class="card-text">Login as a customer.<br> Search for rooms and make bookings.</p>
-                        <a id="show-btn" href="#" class="btn btn-primary">Login</a>
+                        <a id="show-btn" href="customer.jsp" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Employee Login Portal</h5>
                         <p class="card-text">Login as an employee.<br> Convert bookings to rentings.</p>
-                        <a id="show-btn" href="#" class="btn btn-primary">Login</a>
+                        <a id="show-btn" href="employee.jsp" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>
