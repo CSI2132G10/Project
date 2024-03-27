@@ -141,7 +141,11 @@ public class EmployeeService {
 
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();
@@ -180,7 +184,11 @@ public class EmployeeService {
             stmt.setInt(1, employee_id);
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();

@@ -133,8 +133,8 @@ public class HotelService {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             // set every ? of statement
-            stmt.setString(6, editHotel.getChainName());
-            stmt.setString(5, editHotel.getHotelName());
+            stmt.setString(5, editHotel.getChainName());
+            stmt.setString(6, editHotel.getHotelName());
             stmt.setInt(1, editHotel.getRating());
             stmt.setString(2, editHotel.getAddress());
             stmt.setString(3, editHotel.getEmail());
@@ -142,7 +142,11 @@ public class HotelService {
 
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();
@@ -182,7 +186,11 @@ public class HotelService {
             stmt.setString(2, hotel_name);
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();

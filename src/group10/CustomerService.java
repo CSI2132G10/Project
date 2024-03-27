@@ -137,7 +137,11 @@ public class CustomerService {
 
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();
@@ -176,7 +180,11 @@ public class CustomerService {
             stmt.setInt(1, account_number);
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();

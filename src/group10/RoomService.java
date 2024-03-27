@@ -137,7 +137,11 @@ public class RoomService {
             stmt.setInt(5, editRoom.getRoomNumber());
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();
@@ -178,7 +182,11 @@ public class RoomService {
             stmt.setInt(3, room_number);
 
             // execute the query
-            stmt.executeUpdate();
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore update was successful)";
+            }
 
             // close the statement
             stmt.close();

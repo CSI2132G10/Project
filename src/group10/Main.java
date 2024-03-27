@@ -12,6 +12,7 @@ public class Main {
         //connectionTest("hotel");
         //serviceTest();
         //deleteTest("BestEastern", "Chateau", 300);
+        //System.out.println(hotelEditTest("UltreRes","Vista",5,"fakadd","email1",1));
 
         System.out.println("Main has completed running");
     }
@@ -73,6 +74,18 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static String hotelEditTest(String chain_name, String hotel_name, int rating, String address, String email, int manager)
+    {
+        String result;
+        HotelService testService1 = new HotelService();
+        try{
+            result = testService1.updateHotel(new Hotel(chain_name, hotel_name, rating, address, email, manager));
+        } catch (Exception e) {
+            result = e.getMessage();
+        }
+        return result;
     }
 
 }
