@@ -49,7 +49,6 @@
     RoomService roomserv = new RoomService();
     try {
         rooms = roomserv.getRooms();
-
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -186,16 +185,47 @@
 
             <div class="col-md-4">
                 <h4>Insert Room</h4>
-                
+                <form method="POST" action="room-controller.jsp">
+                    <input type="hidden" value="INSERT" name="action"/>
+
+                    Chain Name: 
+                    <select name="chainName">
+                    <% for (HotelChain chain : chains) { %>
+                        <option value="<%= chain.getChainName() %>"><%= chain.getChainName() %></option>
+                    <% } %>
+                    </select><br>
+                    Hotel Name: 
+                    <select name="hotelName">
+                    <% for (Hotel hotel: hotels) { %>
+                        <option value="<%= hotel.getHotelName() %>"><%= hotel.getHotelName() %></option>
+                    <% } %>
+                    </select><br>
+                    room_number: <input type="number" min="0" value="" name="room_number" /><br>
+                    price: <input type="number" min="0" value="" name="price" /><br>
+                    capacity: <input type="number" min="0" value="" name="capacity" /><br>
+                    <input type="submit" value="Submit"/>
+                </form>
             </div>
             <div class="col-md-4">
-                <h4>Edit Room</h4>
-                
+                <h4>Room Editor/Deleter</h4>
+                <form method="POST" action="room.jsp">
+                    Chain Name: 
+                    <select name="chainName">
+                    <% for (HotelChain chain : chains) { %>
+                        <option value="<%= chain.getChainName() %>"><%= chain.getChainName() %></option>
+                    <% } %>
+                    </select><br>
+                    Hotel Name: 
+                    <select name="hotelName">
+                    <% for (Hotel hotel: hotels) { %>
+                        <option value="<%= hotel.getHotelName() %>"><%= hotel.getHotelName() %></option>
+                    <% } %>
+                    </select><br>
+                    room_number: <input type="number" min="0" value="" name="room_number" /><br>
+                    <input type="submit" value="Go to Editor Page"/>
+                </form>
             </div>
-            <div class="col-md-4">
-                <h4>Delete Room</h4>
-                
-            </div>
+
         </div>
 
         <div class="row p-2 my-4" style="background-color:AliceBlue;">
@@ -233,32 +263,6 @@
         </div>
     </div>
 
-    <tbody>
-    <%
-    for (HotelChain chain : chains) { %>
-    <tr>
-        <td><%= chain.getChainName() %></td>
-    </tr>
-    <% } %>
-    </tbody>
-
-    <tbody>
-    <% for (Room room : rooms) { %>
-    <tr>
-        <td><%= room.getRoomNumber() %></td>
-        <td><%= room.getHotelName() %></td>
-        <td><%= room.getChainName() %></td>
-        <form method="POST" action="delete-room-controller.jsp">
-            <td>
-                <input type="hidden" value="<%= room.getRoomNumber() %>" name="roomNumber" />
-                <input type="hidden" value="<%= room.getHotelName() %>" name="hotelName" />
-                <input type="hidden" value="<%= room.getChainName() %>" name="chainName" />
-                <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-trash"></i></button>
-            </td>
-        </form>
-    </tr>
-    <% } %>
-    </tbody>
 
 </body>
 

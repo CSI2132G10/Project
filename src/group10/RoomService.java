@@ -61,6 +61,261 @@ public class RoomService {
         }
     }
 
+    public List<Room> findRoom(String chain_name, String hotel_name, int room_number) throws Exception {
+        Connection con = null;
+
+        // sql query
+        String sql = "SELECT * FROM room WHERE chain_name=? AND hotel_name=? AND room_number=?;";
+
+        // database connection object
+        ConnectionDB db = new ConnectionDB();
+
+        List<Room> rooms = new ArrayList<Room>();
+
+        // try connect to database, catch any exceptions
+        try {
+
+            con = db.getConnection();
+
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+            stmt.setInt(3, room_number);
+
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
+
+            // iterate through the result set
+            while (rs.next()) {
+                // create new Room object
+                Room newRoom = new Room(
+                    rs.getString("chain_name"),
+                    rs.getString("hotel_name"),
+                    rs.getInt("room_number"),
+                    rs.getFloat("price"),
+                    rs.getInt("capacity")
+                );
+
+                // append Room in Rooms list
+                rooms.add(newRoom);
+            }
+
+            // close the statement
+            stmt.close();
+
+            return rooms;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
+    public List<String> findRoomAmenities(String chain_name, String hotel_name, int room_number) throws Exception {
+        Connection con = null;
+        // sql query
+        String sql = "SELECT * FROM room_amenities WHERE chain_name=? AND hotel_name=? AND room_number=?;";
+        // database connection object
+        ConnectionDB db = new ConnectionDB();
+        List<String> amenities = new ArrayList<String>();
+        // try connect to database, catch any exceptions
+        try {
+            con = db.getConnection();
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+            stmt.setInt(3, room_number);
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
+            // iterate through the result set
+            while (rs.next()) {
+                String newAmenity = rs.getString("amenity");
+                amenities.add(newAmenity);
+            }
+            // close the statement
+            stmt.close();
+            return amenities;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public String createRoomAmenity(String chain_name, String hotel_name, int room_number, String amenity) throws Exception {
+        String message = "";
+        Connection con = null;
+        // connection object
+        ConnectionDB db = new ConnectionDB();
+        // sql query
+        String insertRoomQuery = "INSERT INTO room_amenities VALUES (?, ?, ?, ?);";
+
+        // try connect to database, catch any exceptions
+        try {
+            con = db.getConnection(); //get Connection
+            // prepare the statement
+            PreparedStatement stmt = con.prepareStatement(insertRoomQuery);
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+            stmt.setInt(3, room_number);
+            stmt.setString(4, amenity);
+            // execute the query
+            int output = stmt.executeUpdate();
+            System.out.println(output);
+            // close the statement
+            stmt.close();
+            // close the connection
+            db.close();
+        } catch (Exception e) {
+            message = "Error while inserting amenity: " + e.getMessage();
+        } finally {
+            if (con != null) // if connection is still open, then close.
+                con.close();
+            if (message.equals("")) message = "Amenity successfully inserted!";
+        }
+        // return respective message
+        return message;
+    }
+
+    public String deleteRoomAmenity(String chain_name, String hotel_name, int room_number, String amenity) throws Exception {
+        Connection con = null;
+        String message = "";
+        // sql query
+        String sql = "DELETE FROM room_amenities WHERE chain_name=? AND hotel_name=? AND room_number=? AND amenity=?;";
+        // database connection object
+        ConnectionDB db = new ConnectionDB();
+        // try connect to database, catch any exceptions
+        try {
+            con = db.getConnection();
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+            stmt.setInt(3, room_number);
+            stmt.setString(4, amenity);
+            // execute the query
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore delete was successful)";
+            }
+            // close the statement
+            stmt.close();
+        } catch (Exception e) {
+            message = "Error while delete Amenity: " + e.getMessage();
+        } finally {
+            if (con != null) con.close();
+            if (message.equals("")) message = "Amenity successfully deleted!";
+        }
+        return message;
+    }
+
+    public List<String> findRoomAdditional(String chain_name, String hotel_name, int room_number) throws Exception {
+        Connection con = null;
+        // sql query
+        String sql = "SELECT * FROM room_additional WHERE chain_name=? AND hotel_name=? AND room_number=?;";
+        // database connection object
+        ConnectionDB db = new ConnectionDB();
+        List<String> additionals = new ArrayList<String>();
+        // try connect to database, catch any exceptions
+        try {
+            con = db.getConnection();
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+            stmt.setInt(3, room_number);
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
+            // iterate through the result set
+            while (rs.next()) {
+                String newDetail = rs.getString("additional_details");
+                additionals.add(newDetail);
+            }
+            // close the statement
+            stmt.close();
+            return additionals;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public String createRoomAdditional(String chain_name, String hotel_name, int room_number, String additional_detail) throws Exception {
+        String message = "";
+        Connection con = null;
+        // connection object
+        ConnectionDB db = new ConnectionDB();
+        // sql query
+        String insertRoomQuery = "INSERT INTO room_additional VALUES (?, ?, ?, ?);";
+
+        // try connect to database, catch any exceptions
+        try {
+            con = db.getConnection(); //get Connection
+            // prepare the statement
+            PreparedStatement stmt = con.prepareStatement(insertRoomQuery);
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+            stmt.setInt(3, room_number);
+            stmt.setString(4, additional_detail);
+            // execute the query
+            int output = stmt.executeUpdate();
+            System.out.println(output);
+            // close the statement
+            stmt.close();
+            // close the connection
+            db.close();
+        } catch (Exception e) {
+            message = "Error while inserting additional detail: " + e.getMessage();
+        } finally {
+            if (con != null) // if connection is still open, then close.
+                con.close();
+            if (message.equals("")) message = "Additional room detail successfully inserted!";
+        }
+        // return respective message
+        return message;
+    }
+
+    public String deleteRoomAdditional(String chain_name, String hotel_name, int room_number, String additional_detail) throws Exception {
+        Connection con = null;
+        String message = "";
+        // sql query
+        String sql = "DELETE FROM room_additional WHERE chain_name=? AND hotel_name=? AND room_number=? AND additional_details=?;";
+        // database connection object
+        ConnectionDB db = new ConnectionDB();
+        // try connect to database, catch any exceptions
+        try {
+            con = db.getConnection();
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+            stmt.setInt(3, room_number);
+            stmt.setString(4, additional_detail);
+            // execute the query
+            int matchedRows = stmt.executeUpdate();
+            // If no rows are matched, mention this in the message
+            if (matchedRows<1) {
+                message = "Logic Error: No rows matched (therefore delete was successful)";
+            }
+            // close the statement
+            stmt.close();
+        } catch (Exception e) {
+            message = "Error while delete additional_detail: " + e.getMessage();
+        } finally {
+            if (con != null) con.close();
+            if (message.equals("")) message = "Additional_detail successfully deleted!";
+        }
+        return message;
+    }
+
     public String createRoom(Room newRoom) throws Exception {
         String message = "";
         Connection con = null;
