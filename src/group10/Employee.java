@@ -12,7 +12,7 @@ public class Employee {
     private String address;
     private String chain_name;
 
-
+    // NOTE: employeeId is not to be used for insertion. Users are not allowed to set it manually
     public Employee(int employee_id, String employee_name, String role, int sin, String address, String chain_name) {
         this.chain_name = chain_name;
         this.employee_id = employee_id;

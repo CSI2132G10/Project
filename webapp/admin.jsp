@@ -3,7 +3,8 @@
                 java.util.List,java.util.ArrayList,
                 group10.Message,
                 group10.Hotel,group10.HotelService,
-                group10.Employee,group10.EmployeeService" %>
+                group10.Employee,group10.EmployeeService,
+                group10.Customer,group10.CustomerService" %>
 <%
     //Status message code  ---------------------------------------------------------------------------
     ArrayList<Message> messages;
@@ -58,6 +59,16 @@
     EmployeeService empserv = new EmployeeService();
     try {
         employees = empserv.getEmployees();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    //Customer stuff  ---------------------------------------------------------------------------
+    List<Customer> customers = null;
+    CustomerService cusServ = new CustomerService();
+    try {
+        customers = cusServ.getCustomers();
 
     } catch (Exception e) {
         e.printStackTrace();
@@ -233,15 +244,73 @@
 
             <div class="col-md-4">
                 <h4>Insert Employee</h4>
-                
+                <form method="POST" action="employee-controller.jsp">
+                    <input type="hidden" value="INSERT" name="action"/>
+
+                    <!--Just some worthless values inserted. The employee id cannot be set by admin-->
+                    <input type="hidden" value="0" name="employee_id" /><br>
+
+                    Employee Name: <input type="text" value="" name="employee_name" /><br>
+                    Role: <input type="text" value="" name="role" /><br>
+                    SSN/SIN: <input type="text" value="" name="sin" /><br>
+                    Address: <input type="text" value="" name="address" /><br>
+                    Chain Name: 
+                    <select name="chainName">
+                    <% for (HotelChain chain : chains) { %>
+                        <option value="<%= chain.getChainName() %>"><%= chain.getChainName() %></option>
+                    <% } %>
+                    </select><br>
+                    <input type="submit" value="Submit"/>
+                </form>
             </div>
             <div class="col-md-4">
                 <h4>Edit Employee</h4>
+                <form method="POST" action="employee-controller.jsp">
+                    <input type="hidden" value="EDIT" name="action"/>
+
+                    Employee ID: 
+                    <input list="employees" type="text" value="" name="employee_id"/><br>
+                    <datalist id="employees">
+                        <% for (Employee emp : employees) { %>
+                            <option><%= emp.getEmployeeId() %></option>
+                        <% } %>
+                    </datalist>
+                    Employee Name: <input type="text" value="" name="employee_name" /><br>
+                    Role: <input type="text" value="" name="role" /><br>
+                    SSN/SIN: <input type="text" value="" name="sin" /><br>
+                    Address: <input type="text" value="" name="address" /><br>
+                    Chain Name: 
+                    <select name="chainName">
+                    <% for (HotelChain chain : chains) { %>
+                        <option value="<%= chain.getChainName() %>"><%= chain.getChainName() %></option>
+                    <% } %>
+                    </select><br>
+                    <input type="submit" value="Submit"/>
+                </form>
                 
             </div>
             <div class="col-md-4">
                 <h4>Delete Employee</h4>
-                
+                <form method="POST" action="employee-controller.jsp">
+                    <input type="hidden" value="DELETE" name="action"/>
+
+                    Employee ID: 
+                    <input list="employees" type="text" value="" name="employee_id"/><br>
+                    <datalist id="employees">
+                        <% for (Employee emp : employees) { %>
+                            <option><%= emp.getEmployeeId() %></option>
+                        <% } %>
+                    </datalist>
+                    <!--Just some worthless values inserted. These arent needed for deletion-->
+                    <input type="hidden" value="e" name="employee_name" /><br>
+                    <input type="hidden" value="e" name="role" /><br>
+                    <input type="hidden" value="1" name="sin" /><br>
+                    <input type="hidden" value="e" name="address" /><br>
+                    <input type="hidden" value="e" name="chain_name" /><br>
+                    
+                    <input type="submit" value="Submit"/>
+                </form>
+            
             </div>
         </div>
 
@@ -250,15 +319,60 @@
 
             <div class="col-md-4">
                 <h4>Insert Customer</h4>
-                
+                <form method="POST" action="customer-controller.jsp">
+                    <input type="hidden" value="INSERT" name="action"/>
+
+                    <!--Just some worthless values inserted. The employee id cannot be set by admin-->
+                    <input type="hidden" value="0" name="account_number" /><br>
+
+                    Customer Name: <input type="text" value="" name="customer_name" /><br>
+                    Address: <input type="text" value="" name="address" /><br>
+                    ID: <input type="number" value="" name="id" /><br>
+                    Date of Registration: <input type="date" value="" name="date_of_registration" /><br>
+                    <input type="submit" value="Submit"/>
+                </form>
             </div>
             <div class="col-md-4">
                 <h4>Edit Customer</h4>
+                <form method="POST" action="customer-controller.jsp">
+                    <input type="hidden" value="EDIT" name="action"/>
+
+                    Account Number: 
+                    <input list="customers" type="text" value="" name="account_number"/><br>
+                    <datalist id="customers">
+                        <% for (Customer cus : customers) { %>
+                            <option><%= cus.getAccountNumber() %></option>
+                        <% } %>
+                    </datalist>
+                    Customer Name: <input type="text" value="" name="customer_name" /><br>
+                    Address: <input type="text" value="" name="address" /><br>
+                    ID: <input type="number" value="" name="id" /><br>
+                    Date of Registration: <input type="date" value="" name="date_of_registration" /><br>
+                    <input type="submit" value="Submit"/>
+                </form>
                 
             </div>
             <div class="col-md-4">
                 <h4>Delete Customer</h4>
-                
+                <form method="POST" action="customer-controller.jsp">
+                    <input type="hidden" value="DELETE" name="action"/>
+
+                    Account Number: 
+                    <input list="customers" type="text" value="" name="account_number"/><br>
+                    <datalist id="customers">
+                        <% for (Customer cus : customers) { %>
+                            <option><%= cus.getAccountNumber() %></option>
+                        <% } %>
+                    </datalist>
+                    <!--Just some worthless values inserted. These arent needed for deletion-->
+                    <input type="hidden" value="e" name="customer_name" /><br>
+                    <input type="hidden" value="e" name="address" /><br>
+                    <input type="hidden" value="1" name="id" /><br>
+                    <input type="hidden" value="2000-01-01" name="date_of_registration" /><br>
+                    
+                    <input type="submit" value="Submit"/>
+                </form>
+            
             </div>
         </div>
     </div>
