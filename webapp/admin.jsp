@@ -34,6 +34,7 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+    if (chains==null) {chains = new ArrayList<HotelChain>();}
 
     //Hotel stuff ---------------------------------------------------------------------------
     List<Hotel> hotels = null;
@@ -44,6 +45,7 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+    if (hotels==null) {hotels = new ArrayList<Hotel>();}
 
     //Room stuff  ---------------------------------------------------------------------------
     List<Room> rooms = null;
@@ -53,6 +55,7 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+    if (rooms==null) {rooms = new ArrayList<Room>();}
 
     //employee stuff  ---------------------------------------------------------------------------
     List<Employee> employees = null;
@@ -63,6 +66,7 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+    if (employees==null) {employees = new ArrayList<Employee>();}
 
     //Customer stuff  ---------------------------------------------------------------------------
     List<Customer> customers = null;
@@ -73,6 +77,7 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+    if (customers==null) {customers = new ArrayList<Customer>();}
     
 %>
 

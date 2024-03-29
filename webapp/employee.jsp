@@ -32,6 +32,7 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+    if (bookings==null) {bookings = new ArrayList<Booking>();}
 
     //Hotel chain stuff ---------------------------------------------------------------------------
     List<HotelChain> chains = null;
@@ -42,6 +43,7 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+    if (chains==null) {chains = new ArrayList<HotelChain>();}
 
     
     
