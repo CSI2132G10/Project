@@ -29,8 +29,8 @@ INSERT INTO employee(employee_name,role,sin,address,chain_name)  VALUES
 
 -- Inserting 8 hotels for NorthAmHotels
 INSERT INTO hotel VALUES 
-('NorthAmHotels','Vista',      '1','73 Alderney Dr',                   'VistaHelp@northAm.com','1'),
-('NorthAmHotels','Oasis',      '2','5308 Boulevard Saint-Laurent',     'OasisHelp@northAm.com','1'),
+('NorthAmHotels','Vista',      '1','73 Alderney Dr, Dartmouth',                   'VistaHelp@northAm.com','1'),
+('NorthAmHotels','Oasis',      '2','5308 Boulevard Saint-Laurent, Montreal',     'OasisHelp@northAm.com','1'),
 ('NorthAmHotels','Solace',     '3','701 Niakwa Rd, St Boniface',       'SolaceHelp@northAm.com','1'),
 ('NorthAmHotels','Aria',       '4','10805 82 Ave NW, Edmonton',        'AriaHelp@northAm.com','1'),
 ('NorthAmHotels','Harmony',    '5','172 Dollard des Ormeaux, Gatineau','HarmonyHelp@northAm.com','1'),
