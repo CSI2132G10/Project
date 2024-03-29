@@ -226,3 +226,8 @@ LEFT JOIN
 ON 
     total.chain_name = booked.chain_name
     AND total.hotel_name = booked.hotel_name;
+
+-- View for capacity of each hotel taken as an aggregation of each room's capacity
+CREATE VIEW hotel_capacity_view AS
+SELECT chain_name, hotel_name, sum(capacity) AS total_capacity FROM room 
+GROUP BY chain_name, hotel_name;
