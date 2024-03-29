@@ -191,3 +191,38 @@ CREATE TRIGGER insert_hotel_chain
     on hotel_chain
     FOR EACH ROW
     EXECUTE FUNCTION chain_0_hotel();
+
+-- View for number of available rooms per area
+CREATE VIEW remaining_rooms_view as
+SELECT 
+    total.chain_name,
+    total.hotel_name,
+	  (total.total_rooms - COALESCE(booked.booked_rooms, 0)) as remaining_rooms
+FROM
+    (SELECT 
+        b.chain_name, b.hotel_name, COUNT(*) 
+        AS total_rooms
+    FROM 
+        room b
+    GROUP BY 
+        b.chain_name, b.hotel_name) 
+        AS total
+LEFT JOIN
+    (SELECT 
+        r.chain_name, r.hotel_name, COUNT(*) 
+        AS booked_rooms
+    FROM 
+        room r
+    JOIN 
+        booking_renting br ON r.chain_name = br.chain_name 
+        AND r.hotel_name = br.hotel_name 
+        AND r.room_number = br.room_number 
+    WHERE 
+        br.booking_start < CURRENT_DATE 
+        AND br.booking_end > CURRENT_DATE
+    GROUP BY 
+        r.chain_name,
+        r.hotel_name) AS booked
+ON 
+    total.chain_name = booked.chain_name
+    AND total.hotel_name = booked.hotel_name;
