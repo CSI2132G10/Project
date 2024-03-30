@@ -231,3 +231,12 @@ ON
 CREATE VIEW hotel_capacity_view AS
 SELECT chain_name, hotel_name, sum(capacity) AS total_capacity FROM room 
 GROUP BY chain_name, hotel_name;
+
+-- Multi-column index on hotel name and chain for hotels
+CREATE INDEX hotel_index ON hotel (chain_name, hotel_name);
+
+-- Multi-column index on room number, hotel name, and chain
+CREATE INDEX room_index on room (chain_name, hotel_name, room_number);
+
+-- Single-column index on employee id
+CREATE INDEX employee_index on employee USING hash (employee_id);
