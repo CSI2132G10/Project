@@ -103,7 +103,7 @@
                     <input type="hidden" value=<%= r.getHotelName() %> name="hotelName"/>
                     <input type="hidden" value=<%= r.getRoomNumber() %> name="room_number"/>
 
-                    price: <input type="number" min="0" value="" name="price" /><br>
+                    price: <input type="number" step="0.01" min="0" value="" name="price" /><br>
                     capacity: <input type="number" min="0" value="" name="capacity" /><br>
                     <input type="submit" value="Update Listing"/>
                 </form>

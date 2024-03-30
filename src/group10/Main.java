@@ -81,7 +81,7 @@ public class Main {
         String result;
         HotelService testService1 = new HotelService();
         try{
-            result = testService1.updateHotel(new Hotel(chain_name, hotel_name, rating, address, email, manager));
+            result = testService1.updateHotel(new Hotel(chain_name, hotel_name, rating, address, email, manager, 0));
         } catch (Exception e) {
             result = e.getMessage();
         }

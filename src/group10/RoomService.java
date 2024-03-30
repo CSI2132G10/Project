@@ -1,5 +1,6 @@
 package group10;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,6 +118,117 @@ public class RoomService {
         }
 
     }
+
+    /**
+     * @param chain_name Leave as "" to avoid searching using chain_name
+     * @param rating Leave as -1 to avoid searching using hotel rating
+     * @param num_of_rooms Leave as -1 to avoid searching using hotel num_of_rooms
+     * @param price Leave as -1 to avoid searching using price
+     * @param capacity Leave as -1 to avoid searching using capacity
+     * @return
+     * @throws Exception
+     */
+    public List<Room> complexRoomSearch(String chain_name, int rating, int num_of_rooms, float price, int capacity) throws Exception {
+        Connection con = null;
+
+        String sqlRoom = "SELECT * FROM room";
+        boolean whereFlag = false;
+        if (!chain_name.equals("")) {
+            if (!whereFlag) {sqlRoom=sqlRoom+" WHERE chain_name=?"; whereFlag=true;}
+            else {sqlRoom=sqlRoom+" AND chain_name=?";}
+        }
+        if (!(price==-1)) {
+            if (!whereFlag) {sqlRoom=sqlRoom+" WHERE price<=?"; whereFlag=true;}
+            else {sqlRoom=sqlRoom+" AND price=?";}
+        }
+        if (!(capacity==-1)) {
+            if (!whereFlag) {sqlRoom=sqlRoom+" WHERE capacity=?"; whereFlag=true;}
+            else {sqlRoom=sqlRoom+" AND capacity=?";}
+        }
+
+        String sqlHotel = "SELECT * FROM hotel";
+        whereFlag = false;
+        if (!(rating==-1)) {
+            if (!whereFlag) {sqlHotel=sqlHotel+" WHERE rating=?"; whereFlag=true;}
+            else {sqlHotel=sqlHotel+" AND rating=?";}
+        }
+        if (!(num_of_rooms==-1)) {
+            if (!whereFlag) {sqlHotel=sqlHotel+" WHERE num_rooms=?"; whereFlag=true;}
+            else {sqlHotel=sqlHotel+" AND num_rooms=?";}
+        }
+
+        String sql = "SELECT * FROM ("+sqlRoom+") AS room INNER JOIN ("+sqlHotel+") AS hotel ON room.hotel_name = hotel.hotel_name AND room.chain_name = hotel.chain_name;";
+
+
+        // database connection object
+        ConnectionDB db = new ConnectionDB();
+
+        List<Room> rooms = new ArrayList<Room>();
+
+        // try connect to database, catch any exceptions
+        try {
+
+            con = db.getConnection();
+
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            int counter=1;
+            if (!chain_name.equals("")) {
+                stmt.setString(counter, chain_name);
+                counter++;
+            }
+            if (!(price==-1)) {
+                // No clue why, but this only works with bigdecimal
+                stmt.setBigDecimal(counter, new BigDecimal(Float.toString(price)));
+                counter++;
+            }
+            if (!(capacity==-1)) {
+                stmt.setInt(counter, capacity);
+                counter++;
+            }    
+            if (!(rating==-1)) {
+                stmt.setInt(counter, rating);
+                counter++;
+            }
+            if (!(num_of_rooms==-1)) {
+                stmt.setInt(counter, num_of_rooms);
+                counter++;
+            }
+
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
+            
+            // iterate through the result set
+            while (rs.next()) {
+                // create new Room object
+                Room newRoom = new Room(
+                    rs.getString("chain_name"),
+                    rs.getString("hotel_name"),
+                    rs.getInt("room_number"),
+                    rs.getFloat("price"),
+                    rs.getInt("capacity")
+                );
+
+                // append Room in Rooms list
+                rooms.add(newRoom);
+            }
+
+            // close result set
+            rs.close();
+            // close statement
+            stmt.close();
+            con.close();
+            db.close();
+            
+            return rooms;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
 
     public List<String> findRoomAmenities(String chain_name, String hotel_name, int room_number) throws Exception {
         Connection con = null;

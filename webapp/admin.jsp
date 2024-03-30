@@ -217,7 +217,7 @@
                     <% } %>
                     </select><br>
                     room_number: <input type="number" min="0" value="" name="room_number" /><br>
-                    price: <input type="number" min="0" value="" name="price" /><br>
+                    price: <input type="number" step="0.01" min="0" value="" name="price" /><br>
                     capacity: <input type="number" min="0" value="" name="capacity" /><br>
                     <input type="submit" value="Submit"/>
                 </form>

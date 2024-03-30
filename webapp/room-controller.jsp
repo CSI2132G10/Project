@@ -12,7 +12,7 @@
     String chainName = String.valueOf(request.getParameter("chainName"));
     String hotelName = String.valueOf(request.getParameter("hotelName"));
     int room_number = Integer.valueOf(request.getParameter("room_number"));
-    int price;
+    float price;
     int capacity;
     String amenity;
     String detail;
@@ -30,7 +30,7 @@
         capacity = 0;
         amenity = "";
     } else {
-        price = Integer.valueOf(request.getParameter("price"));
+        price = Float.valueOf(request.getParameter("price"));
         capacity = Integer.valueOf(request.getParameter("capacity"));
         // Filling with trash to avoid error
         amenity = "";

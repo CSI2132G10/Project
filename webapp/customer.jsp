@@ -111,6 +111,24 @@
         </div>
     </div>
 
+    <div class="row p-2 my-4" style="background-color:AliceBlue;">
+        <div class="col-md-4">
+            <h4>Search by Criteria</h4>
+        </div>
+        <div class="col-md-6">
+            <form method="POST" action="room-search.jsp">
+                <p>Leave these fields blank if you do not want to search using them</p>
+                Chain Name: <input type="text" value="" name="chain_name" /><br>
+                Hotel Rating: <input type="number" value="" name="rating" /><br>
+                Total Number of Rooms in Hotel : <input type="number" value="" name="num_rooms" /><br>
+                Room Maximum Price: <input type="number" step="0.01" value="" name="price" /><br>
+                Room Capacity: <input type="number" value="" name="capacity" /><br>
+                
+                <input type="submit" value="Find rooms"/>
+            </form>
+        </div>
+    </div>
+
     <div id="accordion">
         <div class="card">
             <div class="card-header" id="headingOne">

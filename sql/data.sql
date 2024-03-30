@@ -27,58 +27,58 @@ INSERT INTO employee(employee_name,role,sin,address,chain_name)  VALUES
 
 -- Inserting 8 hotels for NorthAmHotels
 INSERT INTO hotel VALUES 
-('NorthAmHotels','Vista',      '1','73 Alderney Dr, Dartmouth',                   'VistaHelp@northAm.com','1'),
-('NorthAmHotels','Oasis',      '2','5308 Boulevard Saint-Laurent, Montreal',     'OasisHelp@northAm.com','1'),
-('NorthAmHotels','Solace',     '3','701 Niakwa Rd, St Boniface',       'SolaceHelp@northAm.com','1'),
-('NorthAmHotels','Aria',       '4','10805 82 Ave NW, Edmonton',        'AriaHelp@northAm.com','1'),
-('NorthAmHotels','Harmony',    '5','172 Dollard des Ormeaux, Gatineau','HarmonyHelp@northAm.com','1'),
-('NorthAmHotels','Elysium',    '1','4500 Kingsway, Burnaby',           'ElysiumHelp@northAm.com','1'),
-('NorthAmHotels','Tranquil',   '2','220 Salter St, Westminster',       'TranquilHelp@northAm.com','1'),
-('NorthAmHotels','Serenity',   '3','13080 St Albert Trail, St Albert', 'SerenityHelp@northAm.com','1');
+('NorthAmHotels','Vista',      '1','73 Alderney Dr, Dartmouth',                   'VistaHelp@northAm.com','1','0'),
+('NorthAmHotels','Oasis',      '2','5308 Boulevard Saint-Laurent, Montreal',     'OasisHelp@northAm.com','1','0'),
+('NorthAmHotels','Solace',     '3','701 Niakwa Rd, St Boniface',       'SolaceHelp@northAm.com','1','0'),
+('NorthAmHotels','Aria',       '4','10805 82 Ave NW, Edmonton',        'AriaHelp@northAm.com','1','0'),
+('NorthAmHotels','Harmony',    '5','172 Dollard des Ormeaux, Gatineau','HarmonyHelp@northAm.com','1','0'),
+('NorthAmHotels','Elysium',    '1','4500 Kingsway, Burnaby',           'ElysiumHelp@northAm.com','1','0'),
+('NorthAmHotels','Tranquil',   '2','220 Salter St, Westminster',       'TranquilHelp@northAm.com','1','0'),
+('NorthAmHotels','Serenity',   '3','13080 St Albert Trail, St Albert', 'SerenityHelp@northAm.com','1','0');
 
 -- Inserting 8 hotels for UltraRes
 INSERT INTO hotel VALUES 
-('UltraRes','Haven',       '1','6185 Fraser St, Vancouver',        'HavenTrips@ultrares.com','2'),
-('UltraRes','Zen',         '2','3388 Bd Taschereau, Greensfield',  'ZenTrips@ultrares.com','2'),
-('UltraRes','Refine',      '3','2323 Arbot Rd, Nanaimo',           'RefineTrips@ultrares.com','2'),
-('UltraRes','Relaxation Inn','4','132 Josephine St, North Huron',  'RelaxationTrips@ultrares.com','2'),
-('UltraRes','Luxuria',     '5','739 Lake Bonavista Dr SE, Calgary','LuxuriaTrips@ultrares.com','2'),
-('UltraRes','Frugality',   '1','501 9 Ave N, Golden',              'FrugalityTrips@ultrares.com','2'),
-('UltraRes','Value',       '2','13580 102 Ave, Surey',             'ValueTrips@ultrares.com','2'),
-('UltraRes','QuickTrip',   '3','022 Government St, Victoria',     'QuickTripTrips@ultrares.com','2');
+('UltraRes','Haven',       '1','6185 Fraser St, Vancouver',        'HavenTrips@ultrares.com','2','0'),
+('UltraRes','Zen',         '2','3388 Bd Taschereau, Greensfield',  'ZenTrips@ultrares.com','2','0'),
+('UltraRes','Refine',      '3','2323 Arbot Rd, Nanaimo',           'RefineTrips@ultrares.com','2','0'),
+('UltraRes','Relaxation Inn','4','132 Josephine St, North Huron',  'RelaxationTrips@ultrares.com','2','0'),
+('UltraRes','Luxuria',     '5','739 Lake Bonavista Dr SE, Calgary','LuxuriaTrips@ultrares.com','2','0'),
+('UltraRes','Frugality',   '1','501 9 Ave N, Golden',              'FrugalityTrips@ultrares.com','2','0'),
+('UltraRes','Value',       '2','13580 102 Ave, Surey',             'ValueTrips@ultrares.com','2','0'),
+('UltraRes','QuickTrip',   '3','022 Government St, Victoria',     'QuickTripTrips@ultrares.com','2','0');
 
 -- Inserting 8 hotels for BestEastern
 INSERT INTO hotel VALUES 
-('BestEastern','Premier',   '1','2860 Cruickshank St, Abbotsford',     'PremierEast@BestEastern.com','3'),
-('BestEastern','UltraEast', '2','1250 St Denis Rue, Laval',            'UltraEast@BestEastern.com','3'),
-('BestEastern','Opulence',  '3','3779 smith Rd, Richmond',             'OpulenceEast@BestEastern.com','3'),
-('BestEastern','The Manor', '4','308 Dundas St W, Whitby',             'TheManorEast@BestEastern.com','3'),
-('BestEastern','Hideaway',  '5','131 Madawaska Chemin, Grand Falls',   'HideawayEast@BestEastern.com','3'),
-('BestEastern','Prestige',  '1','301 Wellington St, Ottawa',           'PrestigeEast@BestEastern.com','3'),
-('BestEastern','Lodge',     '2','1750 Erbs Rd, Agatha',                'LodgeEast@BestEastern.com','3'),
-('BestEastern','Chateau',   '3','3599 Commercial St, Vancouver',       'ChateauEast@BestEastern.com','3');
+('BestEastern','Premier',   '1','2860 Cruickshank St, Abbotsford',     'PremierEast@BestEastern.com','3','0'),
+('BestEastern','UltraEast', '2','1250 St Denis Rue, Laval',            'UltraEast@BestEastern.com','3','0'),
+('BestEastern','Opulence',  '3','3779 smith Rd, Richmond',             'OpulenceEast@BestEastern.com','3','0'),
+('BestEastern','The Manor', '4','308 Dundas St W, Whitby',             'TheManorEast@BestEastern.com','3','0'),
+('BestEastern','Hideaway',  '5','131 Madawaska Chemin, Grand Falls',   'HideawayEast@BestEastern.com','3','0'),
+('BestEastern','Prestige',  '1','301 Wellington St, Ottawa',           'PrestigeEast@BestEastern.com','3','0'),
+('BestEastern','Lodge',     '2','1750 Erbs Rd, Agatha',                'LodgeEast@BestEastern.com','3','0'),
+('BestEastern','Chateau',   '3','3599 Commercial St, Vancouver',       'ChateauEast@BestEastern.com','3','0');
 
 -- Inserting 8 hotels for ModernResorts
 INSERT INTO hotel VALUES 
-('ModernResorts','Urban',     '1','44 Britannia Rd E, Mississauga',        'UrbanRes@ModernResorts.com','4'),
-('ModernResorts','Contempor', '2','1897 Queen E, Toronto',                 'ContemporRes@ModernResorts.com','4'),
-('ModernResorts','Slode',     '3','250H MacEwan Hall, Calgary',            'SlodeRes@ModernResorts.com','4'),
-('ModernResorts','Tresid',    '4','2300 Yonge St, Toronto',                'TresidRes@ModernResorts.com','4'),
-('ModernResorts','CutEdge',   '5','842 Québec 138, Cap-Sante',             'CutEdgeRes@ModernResorts.com','4'),
-('ModernResorts','Corner',    '1','20811 Fraser Hwy, Langley',             'CornerRes@ModernResorts.com','4'),
-('ModernResorts','Underhill', '2','A 275 Principale, Sauveur',             'UnderhillRes@ModernResorts.com','4'),
-('ModernResorts','Overhill',  '3','4396 Boulevard Saint-Laurent, Montreal','OverhillRes@ModernResorts.com','4');
+('ModernResorts','Urban',     '1','44 Britannia Rd E, Mississauga',        'UrbanRes@ModernResorts.com','4','0'),
+('ModernResorts','Contempor', '2','1897 Queen E, Toronto',                 'ContemporRes@ModernResorts.com','4','0'),
+('ModernResorts','Slode',     '3','250H MacEwan Hall, Calgary',            'SlodeRes@ModernResorts.com','4','0'),
+('ModernResorts','Tresid',    '4','2300 Yonge St, Toronto',                'TresidRes@ModernResorts.com','4','0'),
+('ModernResorts','CutEdge',   '5','842 Québec 138, Cap-Sante',             'CutEdgeRes@ModernResorts.com','4','0'),
+('ModernResorts','Corner',    '1','20811 Fraser Hwy, Langley',             'CornerRes@ModernResorts.com','4','0'),
+('ModernResorts','Underhill', '2','A 275 Principale, Sauveur',             'UnderhillRes@ModernResorts.com','4','0'),
+('ModernResorts','Overhill',  '3','4396 Boulevard Saint-Laurent, Montreal','OverhillRes@ModernResorts.com','4','0');
 
 -- Inserting 8 hotels for Marrion
 INSERT INTO hotel VALUES 
-('Marrion','Grim',     '1','1173 Michener, Sarnia',             'GrimReports@Marrion.com','5'),
-('Marrion','Crum',     '2','3430 Weston, New york',            'CrumReports@Marrion.com','5'),
-('Marrion','Squal',    '3','6416 Main St, Vancouver',          'SqualReports@Marrion.com','5'),
-('Marrion','Ding',     '4','18730 Fraser Hwy #204, Surrey',    'DingReports@Marrion.com','5'),
-('Marrion','Tattao',   '5','48 Rue Dante, Montreal',           'TattaoReports@Marrion.com','5'),
-('Marrion','Dill',     '1','411 Bayfield St B1, Barrie',       'DillReports@Marrion.com','5'),
-('Marrion','Waterfoul','2','1900 E Trans Canada HWY, Kamloops','WaterfoulReports@Marrion.com','5'),
-('Marrion','Sholly',   '3','5472 Spring Garden Rd, Halifax',   'ShollyReports@Marrion.com','5');
+('Marrion','Grim',     '1','1173 Michener, Sarnia',             'GrimReports@Marrion.com','5','0'),
+('Marrion','Crum',     '2','3430 Weston, New york',            'CrumReports@Marrion.com','5','0'),
+('Marrion','Squal',    '3','6416 Main St, Vancouver',          'SqualReports@Marrion.com','5','0'),
+('Marrion','Ding',     '4','18730 Fraser Hwy #204, Surrey',    'DingReports@Marrion.com','5','0'),
+('Marrion','Tattao',   '5','48 Rue Dante, Montreal',           'TattaoReports@Marrion.com','5','0'),
+('Marrion','Dill',     '1','411 Bayfield St B1, Barrie',       'DillReports@Marrion.com','5','0'),
+('Marrion','Waterfoul','2','1900 E Trans Canada HWY, Kamloops','WaterfoulReports@Marrion.com','5','0'),
+('Marrion','Sholly',   '3','5472 Spring Garden Rd, Halifax',   'ShollyReports@Marrion.com','5','0');
 
 
 -- Inserting rooms ----------------------------

@@ -15,11 +15,12 @@
     String email = String.valueOf(request.getParameter("email"));
     int manager = Integer.valueOf(request.getParameter("manager"));
     
-
+    // num_rooms is only used in Insertion where it must be set to 0 anyway.
+    int num_rooms = 0;
 
     if (action.equals("INSERT")) {
         try {
-            String value = hotelService.createHotel(new Hotel(chainName,hotelName,rating,address,email,manager));
+            String value = hotelService.createHotel(new Hotel(chainName,hotelName,rating,address,email,manager,num_rooms));
             if (value.contains("Error") || value.contains("error")) msg = new Message("error", value);
             else msg = new Message("success", value);
         } catch (Exception e) {
@@ -28,7 +29,7 @@
         }
     } else if (action.equals("EDIT")) {
         try {
-            String value = hotelService.updateHotel(new Hotel(chainName,hotelName,rating,address,email,manager));
+            String value = hotelService.updateHotel(new Hotel(chainName,hotelName,rating,address,email,manager,num_rooms));
             if (value.contains("Error") || value.contains("error")) msg = new Message("error", value);
             else msg = new Message("success", value);
         } catch (Exception e) {

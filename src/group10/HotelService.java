@@ -41,7 +41,8 @@ public class HotelService {
                     rs.getInt("rating"),
                     rs.getString("address"),
                     rs.getString("email"),
-                    rs.getInt("manager")
+                    rs.getInt("manager"),
+                    rs.getInt("num_rooms")
                 );
 
                 // append Hotel in Hotels list
@@ -97,7 +98,8 @@ public class HotelService {
                     rs.getInt("rating"),
                     rs.getString("address"),
                     rs.getString("email"),
-                    rs.getInt("manager")
+                    rs.getInt("manager"),
+                    rs.getInt("num_rooms")
                 );
 
                 // append Room in Rooms list
@@ -125,15 +127,9 @@ public class HotelService {
 
         // connection object
         ConnectionDB db = new ConnectionDB();
-        System.out.println(newHotel.getChainName());
-        System.out.println(newHotel.getHotelName());
-        System.out.println(newHotel.getRating());
-        System.out.println(newHotel.getAddress());
-        System.out.println(newHotel.getEmail());
-        System.out.println(newHotel.getManager());
 
         // sql query
-        String insertHotelQuery = "INSERT INTO hotel VALUES (?, ?, ?, ?, ?, ?);";
+        String insertHotelQuery = "INSERT INTO hotel VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         // try connect to database, catch any exceptions
         try {
@@ -149,6 +145,7 @@ public class HotelService {
             stmt.setString(4, newHotel.getAddress());
             stmt.setString(5, newHotel.getEmail());
             stmt.setInt(6, newHotel.getManager());
+            stmt.setInt(7, newHotel.getNumRooms());
 
             // execute the query
             int output = stmt.executeUpdate();
@@ -171,6 +168,7 @@ public class HotelService {
         return message;
     }
 
+    //Update hotel is not allowed to update the num_rooms attribute
     public String updateHotel(Hotel editHotel) throws Exception {
         Connection con = null;
         String message = "";

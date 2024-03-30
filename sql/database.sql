@@ -23,6 +23,7 @@ CREATE TABLE hotel (
   address     varchar(45) NOT NULL,
   email       varchar(45) NOT NULL,
   manager     int         NOT NULL REFERENCES employee(employee_id),
+  num_rooms   int NOT NULL CONSTRAINT positive_room_count CHECK (num_rooms>=0),
   FOREIGN KEY(chain_name) REFERENCES hotel_chain(chain_name) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY(chain_name,hotel_name)
 );
@@ -126,7 +127,9 @@ CREATE TABLE checked_in_by (
   PRIMARY KEY(chain_name,hotel_name,room_number,account_number,booking_start,booking_end)
 );
 
-
+-- ----------------------------
+-- Triggers and Functions
+-- ----------------------------
 
 
 -- Function for archiving bookings/rentings
@@ -172,7 +175,6 @@ CREATE TRIGGER trigger_num_hotel_update
     FOR EACH ROW
     EXECUTE FUNCTION number_of_hotels();
 
--- IMPORTANT NOTE: You may want to comment this out. Depends on how you populate the data initially
 -- Function to throw error if hotel_chains have more than 0 hotels on insertion
 CREATE OR REPLACE FUNCTION chain_0_hotel()
     RETURNS TRIGGER AS
@@ -191,6 +193,52 @@ CREATE TRIGGER insert_hotel_chain
     on hotel_chain
     FOR EACH ROW
     EXECUTE FUNCTION chain_0_hotel();
+
+
+-- Function to update num_rooms of hotel
+CREATE OR REPLACE FUNCTION number_of_rooms()
+    RETURNS TRIGGER AS
+    $$
+    BEGIN
+      if TG_OP='INSERT' then
+        UPDATE hotel set num_rooms = num_rooms + 1 where hotel_name = new.hotel_name AND chain_name = new.chain_name;
+      end if;
+      if TG_OP='DELETE' then
+        UPDATE hotel set num_rooms = num_rooms - 1 where hotel_name = old.hotel_name AND chain_name = old.chain_name;
+      end if;
+      RETURN NEW;
+    END;
+    $$
+    LANGUAGE PLPGSQL;
+-- Trigger to update the hotel room count whenever room table is updated
+CREATE TRIGGER trigger_num_hotel_update
+    AFTER INSERT OR DELETE
+    ON room
+    FOR EACH ROW
+    EXECUTE FUNCTION number_of_rooms();
+
+-- Function to throw error if hotels have more than 0 rooms on insertion
+CREATE OR REPLACE FUNCTION hotel_0_room()
+    RETURNS TRIGGER AS
+    $$
+    BEGIN
+      if NEW.num_rooms>0 then
+        RAISE EXCEPTION 'hotels must have 0 rooms on insertion';
+      end if;
+      RETURN NEW;
+    END;
+    $$
+    LANGUAGE PLPGSQL;
+-- Trigger to ensure hotel start with 0 rooms
+CREATE TRIGGER insert_hotel
+    AFTER INSERT
+    on hotel
+    FOR EACH ROW
+    EXECUTE FUNCTION hotel_0_room();
+
+-- ----------------------------
+-- Views
+-- ----------------------------
 
 -- View for number of available rooms per area
 CREATE VIEW remaining_rooms_view as
