@@ -162,11 +162,81 @@ ON full_edata.employee_name=etable.employee_name AND full_edata.sin=etable.sin
 -- Inserting Bookings ----------------------------
 
 INSERT INTO booking_renting VALUES ('NorthAmHotels','Vista','500', '1','2014-10-19 10:23:54','2014-10-19 12:23:54','false');
-INSERT INTO booking_renting VALUES ('Marrion',      'Squal','500', '2','2024-03-21 10:23:54','2024-05-25 12:23:54','true');
+INSERT INTO booking_renting VALUES ('Marrion','Squal','103', '2','2024-03-21 10:23:54','2024-05-25 12:23:54','true');
+INSERT INTO booking_renting VALUES ('Hilton','Newport','226', '3','2024-03-21 10:23:54','2024-05-25 12:23:54','true');
+INSERT INTO booking_renting VALUES ('Marriott','Atlantic','307', '2','2024-03-21 10:23:54','2024-05-25 12:23:54','false');
+INSERT INTO booking_renting VALUES ('Hinton','Central','811', '4','2024-03-21 10:23:54','2024-05-25 12:23:54','false');
+INSERT INTO booking_renting VALUES ('Wyndham','Suites','319', '1','2024-03-21 10:23:54','2024-05-25 12:23:54','true');
 -- Since the entry above has 'true' for renting, we make Marrion Squal's Front Desk Agent check the customer in
 INSERT INTO checked_in_by VALUES
 ('Marrion','Squal','500', '2','2024-03-21 10:23:54','2024-05-25 12:23:54',
 	(SELECT employee_id FROM employee
 	WHERE role='Front Desk Agent' AND employee_id IN
 	(SELECT employee_id FROM works_at WHERE chain_name='Marrion' AND hotel_name='Squal'))
-)
+),
+('Hilton','Newport','226', '3','2024-03-21 10:23:54','2024-05-25 12:23:54',
+	(SELECT employee_id FROM employee
+	WHERE role='Front Desk Agent' AND employee_id IN
+	(SELECT employee_id FROM works_at WHERE chain_name='Hilton' AND hotel_name='Newport'))
+),
+('Wyndham','Suites','319', '1','2024-03-21 10:23:54','2024-05-25 12:23:54',
+	(SELECT employee_id FROM employee
+	WHERE role='Front Desk Agent' AND employee_id IN
+	(SELECT employee_id FROM works_at WHERE chain_name='Wyndham' AND hotel_name='Suites'))
+);
+
+-- Inserting Room Features ---------------------
+
+INSERT INTO room_additional VALUES ("Marriott","Atlantic","307","Seaside View");
+INSERT INTO room_additional VALUES ("Marriott", "Marriott Marquis", "123", "Seaside View, Single Bed, Balcony");
+INSERT INTO room_additional VALUES ("Hilton", "Hilton Garden Inn", "225", "City View, Double Bed");
+INSERT INTO room_additional VALUES ("Hyatt", "Hyatt Regency", "301", "Mountain View, King Bed");
+INSERT INTO room_additional VALUES ("InterContinental", "InterContinental San Francisco", "112", "City View, Single Bed");
+INSERT INTO room_additional VALUES ("Radisson", "Radisson Blu Aqua Hotel", "209", "Lake View, Queen Bed, Mini Bar");
+INSERT INTO room_additional VALUES ("Accor", "Sofitel New York", "305", "City View, King Bed, Balcony");
+INSERT INTO room_additional VALUES ("Wyndham", "Wyndham Grand Orlando Resort", "127", "Pool View, Double Bed, Balcony");
+INSERT INTO room_additional VALUES ("Choice Hotels", "Cambria Hotel New Orleans", "229", "City View, Single Bed");
+INSERT INTO room_additional VALUES ("Best Western", "Best Western Plus Music Row", "303", "City View, King Bed");
+INSERT INTO room_additional VALUES ("Four Seasons", "Four Seasons Hotel Miami", "115", "Ocean View, Queen Bed, Mini Bar");
+
+
+INSERT INTO room_amenities VALUES ("Marrion","Squal","103","Kitchen, Doubles");
+INSERT INTO room_amenities VALUES ("Marriott", "Marriott Marquis", "123", "TV, Air Conditioner, Free Wifi");
+INSERT INTO room_amenities VALUES ("Hilton", "Hilton Garden Inn", "225", "TV, Air Conditioner, Large Fridge"); 
+INSERT INTO room_amenities VALUES ("Hyatt", "Hyatt Regency", "301", "Free Wifi, Large Fridge, TV");
+INSERT INTO room_amenities VALUES ("InterContinental", "InterContinental San Francisco", "112", "Air Conditioner, Free Wifi, TV");
+INSERT INTO room_amenities VALUES ("Radisson", "Radisson Blu Aqua Hotel", "209", "Large Fridge, TV, Air Conditioner");
+INSERT INTO room_amenities VALUES ("Accor", "Sofitel New York", "305", "TV, Free Wifi, Large Fridge");
+INSERT INTO room_amenities VALUES ("Wyndham", "Wyndham Grand Orlando Resort", "127", "Air Conditioner, Large Fridge, Free Wifi");
+INSERT INTO room_amenities VALUES ("Choice Hotels", "Cambria Hotel New Orleans", "229", "TV, Air Conditioner, Free Wifi");
+INSERT INTO room_amenities VALUES ("Best Western", "Best Western Plus Music Row", "303", "Large Fridge, Free Wifi, TV");
+INSERT INTO room_amenities VALUES ("Four Seasons", "Four Seasons Hotel Miami", "115", "Air Conditioner, TV, Free Wifi");
+
+-- Inserting Hotel Room Numbers ------------------
+
+INSERT INTO hotel_phone_numbers VALUES ("Hilton","Newport","+1(905)-470-8500");
+INSERT INTO hotel_phone_numbers VALUES ("Marriott", "Marriott Marquis", "(123) 456-7890");
+INSERT INTO hotel_phone_numbers VALUES ("Hilton", "Hilton Garden Inn", "(234) 567-8901");
+INSERT INTO hotel_phone_numbers VALUES ("Hyatt", "Hyatt Regency", "(345) 678-9012");
+INSERT INTO hotel_phone_numbers VALUES ("InterContinental", "InterContinental San Francisco", "(456) 789-0123");
+INSERT INTO hotel_phone_numbers VALUES ("Radisson", "Radisson Blu Aqua Hotel", "(567) 890-1234");
+INSERT INTO hotel_phone_numbers VALUES ("Accor", "Sofitel New York", "(678) 901-2345");
+INSERT INTO hotel_phone_numbers VALUES ("Wyndham", "Wyndham Grand Orlando Resort", "(789) 012-3456");
+INSERT INTO hotel_phone_numbers VALUES ("Choice Hotels", "Cambria Hotel New Orleans", "(890) 123-4567");
+INSERT INTO hotel_phone_numbers VALUES ("Best Western", "Best Western Plus Music Row", "(901) 234-5678");
+INSERT INTO hotel_phone_numbers VALUES ("Four Seasons", "Four Seasons Hotel Miami", "(012) 345-6789");
+
+
+-- Inserting Chain Addresses ------------------
+
+INSERT INTO chain_address VALUES ("Hilton","8500_WardenAvenueMarkham_ONCA_L6G1A5");
+INSERT INTO chain_address VALUES ("Marriott", "10400 Fernwood Rd, Bethesda, MD 20817, USA");
+INSERT INTO chain_address VALUES ("Hilton", "7930 Jones Branch Dr, McLean, VA 22102, USA");
+INSERT INTO chain_address VALUES ("Hyatt", "150 N Riverside Plaza, Chicago, IL 60606, USA");
+INSERT INTO chain_address VALUES ("InterContinental", "3 Ravinia Dr #100, Atlanta, GA 30346, USA");
+INSERT INTO chain_address VALUES ("Radisson", "701 Carlson Pkwy, Minnetonka, MN 55305, USA");
+INSERT INTO chain_address VALUES ("Accor", "82 Rue Henri Farman, 92130 Issy-les-Moulineaux, France");
+INSERT INTO chain_address VALUES ("Wyndham", "22 Sylvan Way, Parsippany, NJ 07054, USA");
+INSERT INTO chain_address VALUES ("Choice Hotels", "1 Choice Hotels Cir # 400, Rockville, MD 20850, USA");
+INSERT INTO chain_address VALUES ("Best Western", "6201 N 24th Pkwy, Phoenix, AZ 85016, USA");
+INSERT INTO chain_address VALUES ("Four Seasons", "1165 Leslie St, North York, ON M3C 2K8, Canada");
