@@ -103,8 +103,12 @@ public class RoomService {
                 rooms.add(newRoom);
             }
 
-            // close the statement
+            // close result set
+            rs.close();
+            // close statement
             stmt.close();
+            con.close();
+            db.close();
 
             return rooms;
 
@@ -137,8 +141,13 @@ public class RoomService {
                 String newAmenity = rs.getString("amenity");
                 amenities.add(newAmenity);
             }
-            // close the statement
+            /// close result set
+            rs.close();
+            // close statement
             stmt.close();
+            con.close();
+            db.close();
+
             return amenities;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -238,8 +247,13 @@ public class RoomService {
                 String newDetail = rs.getString("additional_details");
                 additionals.add(newDetail);
             }
-            // close the statement
+            // close result set
+            rs.close();
+            // close statement
             stmt.close();
+            con.close();
+            db.close();
+            
             return additionals;
         } catch (Exception e) {
             throw new Exception(e.getMessage());

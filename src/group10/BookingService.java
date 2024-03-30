@@ -201,6 +201,51 @@ public class BookingService {
         return message;
     }
 
+    public String createBooking(Booking newBooking) throws Exception {
+        String message = "";
+        Connection con = null;
+
+        // connection object
+        ConnectionDB db = new ConnectionDB();
+        // sql query
+        String insertRoomQuery = "INSERT INTO booking_renting VALUES (?, ?, ?, ?, ?, ?, ?);";
+
+        // try connect to database, catch any exceptions
+        try {
+            con = db.getConnection(); //get Connection
+
+            // prepare the statement
+            PreparedStatement stmt = con.prepareStatement(insertRoomQuery);
+
+            // set every ? of statement
+            stmt.setString(1, newBooking.getChainName());
+            stmt.setString(2, newBooking.getHotelName());
+            stmt.setInt(3, newBooking.getRoomNumber());
+            stmt.setInt(4, newBooking.getAccountNumber());
+            stmt.setTimestamp(5, newBooking.getBookingStart());
+            stmt.setTimestamp(6, newBooking.getBookingEnd());
+            stmt.setBoolean(7, newBooking.getIsRenting());
+
+            // execute the query
+            int output = stmt.executeUpdate();
+            System.out.println(output);
+
+            // close the statement
+            stmt.close();
+            // close the connection
+            db.close();
+        } catch (Exception e) {
+            message = "Error while inserting booking: " + e.getMessage();
+        } finally {
+            if (con != null) // if connection is still open, then close.
+                con.close();
+            if (message.equals("")) message = "booking successfully inserted!";
+
+        }
+        // return respective message
+        return message;
+    }
+
     public String convertBookingToRenting(Booking booking, int employee_id) throws Exception {
         Connection con = null;
         String message = "";

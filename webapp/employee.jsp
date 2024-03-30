@@ -100,8 +100,8 @@
                     </select><br>
                     Hotel Name:<input type="text" value="" name="hotel_name"/><br>
                     Room Number:<input type="number" value="" name="room_number"/><br>
-                    Booking Start Date:<input type="datetime-local" value="" name="booking_start"/><br>
-                    Booking End Date:<input type="datetime-local" value="" name="booking_end"/><br>
+                    Renting Start Date:<input type="datetime-local" value="" name="booking_start"/><br>
+                    Renting End Date:<input type="datetime-local" value="" name="booking_end"/><br>
                     Customer Account Number:<input type="number" value="" name="account_number"/><br>
                     Your Employee ID Number:<input type="number" value="" name="employee_id"/><br>
                     

@@ -27,12 +27,25 @@
     Timestamp booking_start = Timestamp.valueOf(string_start);
     Timestamp booking_end = Timestamp.valueOf(string_end);
 
-    int employee_id = Integer.valueOf(request.getParameter("employee_id"));
+    //Trash value
+    int employee_id = -1;
+    if (!action.equals("INSERTBOOKING")){
+        employee_id = Integer.valueOf(request.getParameter("employee_id"));
+    }
     
 
     if (action.equals("INSERT")) {
         try {
             String value = bookingService.createRenting(new Booking(chainName,hotelName,room_number,account_number,booking_start,booking_end,is_renting),employee_id);
+            if (value.contains("Error") || value.contains("error")) msg = new Message("error", value);
+            else msg = new Message("success", value);
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = new Message("error", "Unknown exception: "+e.toString());
+        }
+    } else if (action.equals("INSERTBOOKING")) {
+        try {
+            String value = bookingService.createBooking(new Booking(chainName,hotelName,room_number,account_number,booking_start,booking_end,is_renting));
             if (value.contains("Error") || value.contains("error")) msg = new Message("error", value);
             else msg = new Message("success", value);
         } catch (Exception e) {
@@ -67,6 +80,10 @@
     // set session attribute named messages to messages value
     session.setAttribute("messages", messages);
 
-    response.sendRedirect("employee.jsp");
+    if (action.equals("INSERTBOOKING")) {
+        response.sendRedirect("customer.jsp");
+    } else {
+        response.sendRedirect("employee.jsp");
+    }
 
 %>

@@ -2,8 +2,6 @@
 -- DML - Creating the Data
 -- ----------------------------
 
--- NOTE THAT THIS IS STILL UNFINISHED!!!
-
 -- Inserting Hotel Chains ----------------------------
 
 -- Inserting 5 hotel chains

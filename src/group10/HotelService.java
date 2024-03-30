@@ -62,6 +62,63 @@ public class HotelService {
         }
     }
 
+    public List<Hotel> findHotel(String chain_name, String hotel_name) throws Exception {
+        Connection con = null;
+
+        // sql query
+        String sql = "SELECT * FROM hotel WHERE chain_name=? AND hotel_name=?;";
+
+        // database connection object
+        ConnectionDB db = new ConnectionDB();
+
+        List<Hotel> hotels = new ArrayList<Hotel>();
+
+        // try connect to database, catch any exceptions
+        try {
+
+            con = db.getConnection();
+
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            // set every ? of statement
+            stmt.setString(1, chain_name);
+            stmt.setString(2, hotel_name);
+
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
+
+            // iterate through the result set
+            while (rs.next()) {
+                // create new Room object
+                Hotel newHotel = new Hotel(
+                    rs.getString("chain_name"),
+                    rs.getString("hotel_name"),
+                    rs.getInt("rating"),
+                    rs.getString("address"),
+                    rs.getString("email"),
+                    rs.getInt("manager")
+                );
+
+                // append Room in Rooms list
+                hotels.add(newHotel);
+            }
+
+            // close result set
+            rs.close();
+            // close statement
+            stmt.close();
+            con.close();
+            db.close();
+
+            return hotels;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
     public String createHotel(Hotel newHotel) throws Exception {
         String message = "";
         Connection con = null;
