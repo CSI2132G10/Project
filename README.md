@@ -31,6 +31,8 @@
    Afterward, do the same with `data.sql`. This should populate the database with all the necessary data.
    ![](https://lh7-us.googleusercontent.com/umxZ55rI9qhqhuBWsCC2gTE_cqK86FRXOoik7Rr6ts0T5G2QV1y4yiUW8svbC8OfN7afGYOVQeEQeYO_fKXag-5r-yzkh_PPQ1QGpsxMiqIKWEXrh7CjGi6i453Ko8GnY0jlBkoTEDytzbXleO0ftAE) ![](https://lh7-us.googleusercontent.com/LcoiNyIiN-b28QzZv-I9O3X5KSWvMjEjLHw7mO7IMHLvzClEAXZG0513baGegwp4fwzzfPgbByyivBx2i_-u06RIAS8iPrkAq-jI6gure4DD_NpSLVYNrjHGfY-DPgvWaJJMZZBdXdAo3pDj_TyVJL0)
 
+   NOTE: If you make a mistake you may need to reset the schema. You can use this command: `DROP SCHEMA public CASCADE; CREATE SCHEMA public;`. This assumes your SCHEMA is named `public`. After resetting the schema, begin step 3 again (using `database.sql` and `data.sql`).
+
 ### Part 3 - Installing the Web App (Tomcat)
 1. Now we must startup an Apache Tomcat server. This can be done through the command line or through your editor of choice, although we only list installation steps for Visual Studio Code.
 	- **Command Prompt (Windows):**

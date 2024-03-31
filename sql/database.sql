@@ -53,8 +53,8 @@ CREATE TABLE booking_renting (
   account_number  int NOT NULL,
   -- If bookings are only allowed in the future, then add this checks:
   -- CHECK(booking_start>=NOW())
-  booking_start   timestamp UNIQUE,
-  booking_end     timestamp UNIQUE CONSTRAINT end_after_start CHECK(booking_end>=booking_start),
+  booking_start   timestamp,
+  booking_end     timestamp CONSTRAINT end_after_start CHECK(booking_end>=booking_start),
   is_renting      boolean NOT NULL,
   -- is_archived is only used in some models... not used in copy-to-new-table model so it has been commented out
   -- is_archived     boolean NOT NULL,
@@ -68,8 +68,8 @@ CREATE TABLE booking_renting_archive (
   hotel_name      varchar(45),
   room_number     int,
   account_number  int,
-  booking_start   timestamp UNIQUE,
-  booking_end     timestamp UNIQUE CONSTRAINT end_after_start CHECK(booking_end>=booking_start),
+  booking_start   timestamp,
+  booking_end     timestamp CONSTRAINT end_after_start CHECK(booking_end>=booking_start),
   is_renting      boolean NOT NULL,
   -- is_archived is only used in some models... not used in copy-to-new-table model so it has been commented out
   -- is_archived     boolean NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE chain_address (
 CREATE TABLE hotel_phone_numbers (
   chain_name    varchar(45) NOT NULL,
   hotel_name    varchar(45) NOT NULL,
-  phone_number  int NOT NULL,
+  phone_number  varchar(45) NOT NULL,
   FOREIGN KEY(chain_name,hotel_name) REFERENCES hotel(chain_name,hotel_name) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY(chain_name,hotel_name,phone_number)
 );
