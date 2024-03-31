@@ -6,20 +6,20 @@
 --       These queries are here by requirement of the project
 
 -- Query that returns the total profit of a hotel by adding the price of every room and the bookings under it
--- The values 'NorthAmHotels' and 'Vista' can be replaced with any hotel in the DB to get that hotel's profit.
+-- The values 'Hilton' and 'Aria' can be replaced with any hotel in the DB to get that hotel's profit.
 -- This is the sample query for one that uses aggregation, as the sum of price is being taken.
 select sum(r.price) as profit from room r
 JOIN 
         booking_renting br ON r.chain_name = br.chain_name 
         AND r.hotel_name = br.hotel_name 
         AND r.room_number = br.room_number
-where r.chain_name = 'NorthAmHotels' and r.hotel_name = 'Vista';
+where r.chain_name = 'Hilton' and r.hotel_name = 'Aria';
 
 -- Query that returns the room numbers which are not currently booked and their prices using a nested query.
--- The values 'NorthAmHotels' and 'Vista' can be replaced with any hotel in the DB.
+-- The values 'Hilton' and 'Aria' can be replaced with any hotel in the DB.
 -- This is the sample query for one that uses a nested query, as we find and exclude the booked rooms in a subquery.
-select * as available rooms from room r
-where r.chain_name = 'NorthAmHotels' and r.hotel_name = 'Vista'
+select * from room r
+where r.chain_name = 'Hilton' and r.hotel_name = 'Aria'
 and r.room_number not in
 (
 	SELECT room_number FROM booking_renting br
